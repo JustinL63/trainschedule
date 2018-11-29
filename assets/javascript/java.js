@@ -11,6 +11,14 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+var currentTime = moment();
+console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+var currentTimeConvert = moment().subtract(1, "years");
+console.log(currentTimeConvert);
+var diffTime = moment().diff(moment(currentTimeConvert), "minutes");
+console.log("DIFFERENCE IN TIME: " + diffTime);
+
+
 
 $("#submit").on("click", function(event) {
     event.preventDefault();
@@ -19,7 +27,7 @@ $("#submit").on("click", function(event) {
 
     var trname = $("#trainname").val().trim();
     var trndest = $("#traindestination").val().trim();
-    // var trntime = moment($("#firsttime").val().trim(), "MM/DD/YYYY").format("X");
+    var trntime = $("#firsttime").val().trim();
     var trnfreq = $("#trainfrequency").val().trim();
     var trntime = 0;
     //creating an object from the variable entered by the user
@@ -29,6 +37,15 @@ $("#submit").on("click", function(event) {
         Time: trntime,
         Frequency: trnfreq
     };
+//need a variable that defines the difference between the current time and the time entered for the first train
+    var trainTimeDiff = moment().diff(currentTimeConvert, "minutes");
+    console.log(trainTimeDiff);
+//need a variable that shows the next train based on first time and frequency
+    var nextTrain = (currentTimeConvert + trnfreq);
+    console.log(nextTrain);
+
+    
+
     //pushing the new train to the firebase data base
     database.ref().push(newtrain);
 
