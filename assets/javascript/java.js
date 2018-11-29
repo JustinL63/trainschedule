@@ -11,8 +11,11 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+
+//creating a variable for the current time
 var currentTime = moment();
 console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+//pushing back the current time one year so that anytime entered will not show and error
 var currentTimeConvert = moment().subtract(1, "years");
 console.log(currentTimeConvert);
 var diffTime = moment().diff(moment(currentTimeConvert), "minutes");
@@ -43,6 +46,9 @@ $("#submit").on("click", function(event) {
 //need a variable that shows the next train based on first time and frequency
     var nextTrain = (currentTimeConvert + trnfreq);
     console.log(nextTrain);
+
+    //I need to use moment to determine how long until the next train arrives
+    
 
     
 
